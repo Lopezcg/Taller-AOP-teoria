@@ -22,9 +22,9 @@ function cargaEstudiantes() {
         trHTML +=
           '<td><button type="button" class="btn btn-outline-secondary" onclick="actualizarEstudiante(' + object["id"] + ')">Editar</button>';
         trHTML +=
-          '<button type="button" class="btn btn-outline-danger" onclick="cargaNotas(' + object["id"] + ')">Notas</button></td>';
+          '<button type="button" class="btn btn-outline-danger" onclick="cargaNotas(' + object["id"] + ')">Notas</button>';
         trHTML +=
-          '<button type="button" class="btn btn-outline-danger" onclick="borrarEstudiante(' + object["id"] + ')">Borrar</button></td>';
+          '<button type="button" class="btn btn-outline-danger" onclick="borrarEstudiante(' + object["id"] + ')">Borrar</button>';
         trHTML += "</tr>";
       }
       document.getElementById("mytable").innerHTML = trHTML;
