@@ -130,7 +130,7 @@ function editarNota(id){
 }
 function borrarNota(id){
     const xhttp = new XMLHttpRequest();
-    xhttp.open("DELETE", "http://localhost:8080/api/borra/" + id );
+    xhttp.open("DELETE", "http://localhost:8080/api/borranota/" + id );
     xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhttp.send(
         JSON.stringify({
@@ -138,9 +138,9 @@ function borrarNota(id){
         })
     );
     xhttp.onreadystatechange = function () {
-        if (this.status == 204) {
+        
             Swal.fire("Nota Borrada");
             cargaNotas();
-        }
+        
     };
 }

@@ -50,5 +50,12 @@ public class ControladorNota {
 
         return  repositorioNota.save(nuevaNota);
     }
+    @DeleteMapping("/borranota/{id}")
+    public ResponseEntity<Nota> borraNota(@PathVariable Integer id) {
+        Nota nota = repositorioNota.findById(id)
+                .orElseThrow(() -> new RegistroNoEncontradoException("No existe la nota con id: " + id));
+        repositorioNota.delete(nota);
+        return ResponseEntity.ok(nota);
+    }
 
 }
