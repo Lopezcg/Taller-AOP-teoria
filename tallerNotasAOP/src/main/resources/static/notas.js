@@ -3,6 +3,8 @@
 
 function cargaNotas() {
     const urlParams = new URLSearchParams(window.location.search);
+    const nombre = urlParams.get('nombre');
+    document.getElementById("studentName").innerText = "Teoría de la Computación - Estudiante: " + nombre;
     const id = urlParams.get('id');
     const xhttp = new XMLHttpRequest();
     xhttp.open("GET", "http://localhost:8080/api/notas/" + id );

@@ -22,7 +22,7 @@ function cargaEstudiantes() {
         trHTML +=
           '<td><button type="button" class="btn btn-outline-secondary" onclick="actualizarEstudiante(' + object["id"] + ')">Editar</button>';
         trHTML +=
-          '<button type="button" class="btn btn-outline-danger" onclick="cargaNotas(' + object["id"] + ')">Notas</button>';
+          '<button type="button" class="btn btn-outline-danger" onclick="cargaNotas(\'' + object["id"] + '\',\'' + object["nombre"] + '\',\'' + object["apellido"] + '\')">Notas</button>';
         trHTML +=
           '<button type="button" class="btn btn-outline-danger" onclick="borrarEstudiante(' + object["id"] + ')">Borrar</button>';
         trHTML += "</tr>";
@@ -147,6 +147,7 @@ function cargaEstudiantes() {
   }
 
   //NOTAS
-function cargaNotas(estudiante_id){
-    window.location.href = `notas.html?id=${estudiante_id}`;
+function cargaNotas(estudiante_id, nombre,apellido) {
+  const nombreCompleto = nombre + ' ' + apellido;
+  window.location.href = `notas.html?id=${estudiante_id}&nombre=${nombreCompleto}`;
 }
