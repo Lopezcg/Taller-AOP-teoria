@@ -19,7 +19,7 @@ function cargaNotas() {
                 trHTML += "<td>" + object["valor"] + "</td>";
                 trHTML += "<td>" + object["porcentaje"] + "</td>";
                 trHTML +=
-                    '<td><button type="button" class="btn btn-outline-secondary" onclick="actualizarNota(' + object["id"] + ', ' + object["estudiante_id"] + ')">Editar</button>';
+                    '<td><button type="button" class="btn btn-outline-secondary" onclick="actualizarNota(' + object["id"] + ')">Editar</button>';
                 trHTML +=
                     '<button type="button" class="btn btn-outline-danger" onclick="borrarNota(' +  object["id"] + ')">Borrar</button></td>';
                 trHTML += "</tr>";
@@ -71,35 +71,52 @@ function creaNota(){
         }
     };
 }
-function actualizarNota(id,estudiante_id){
-    Swal.fire({
-        title: "Editar Nota",
-        html:
-            '<input id="id" type="hidden">' +
-            '<input id="observacion" class="swal2-input"  placeholder="Observacion">' +
-            '<input id="valor" class="swal2-input" placeholder="Valor">' +
-            '<input id="porcentaje" class="swal2-input" placeholder="Porcentaje">',
-        focusConfirm: false,
-        preConfirm: () => {
-            editarNota(id,estudiante_id);
-        },
-    });
+function actualizarNota(id) {
+
+    const xhttp = new XMLHttpRequest();
+    xhttp.open("GET", "http://localhost:8080/api/nota/" + id );
+    xhttp.send();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            const obj = JSON.parse(this.responseText);
+            console.log(obj.nombre);
+            Swal.fire({
+                title: "Editar Nota",
+                html:
+                    '<input id="id" type="hidden" value=' +
+                    obj.id +
+                    ">" +
+                    '<input id="observacion" class="swal2-input" placeholder="Observacion" value="' +
+                    obj.observacion +
+                    '">' +
+                    '<input id="valor" class="swal2-input" placeholder="Valor" value="' +
+                    obj.valor +
+                    '">' +
+                    '<input id="porcentaje" class="swal2-input" placeholder="Porcentaje" value="' +
+                    obj.porcentaje +
+                    '">',
+                focusConfirm: false,
+                preConfirm: () => {
+                    editarNota(obj.id);
+                },
+            });
+        }
+    };
 }
 
-function editarNota(id,estudiante_id){
+function editarNota(id){
     const observacion = document.getElementById("observacion").value;
     const valor = document.getElementById("valor").value;
     const porcentaje = document.getElementById("porcentaje").value;
 
     const xhttp = new XMLHttpRequest();
-    xhttp.open("PUT", "http://localhost:8080/api/act/" + id );
+    xhttp.open("PUT", "http://localhost:8080/api/actnota/" + id );
     xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhttp.send(
         JSON.stringify({
             observacion: observacion,
             valor: valor,
             porcentaje: porcentaje,
-
         })
     );
     console.log("holaerror");

@@ -1,6 +1,7 @@
 package edu.javeriana.tallernotasAOP.controlador;
 
 import edu.javeriana.tallernotasAOP.excepcion.RegistroNoEncontradoException;
+import edu.javeriana.tallernotasAOP.modelo.Estudiante;
 import edu.javeriana.tallernotasAOP.modelo.Nota;
 import edu.javeriana.tallernotasAOP.repositorio.RepositorioNota;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,17 @@ public class ControladorNota {
     @GetMapping("/notas/{estudianteid}")
     public List<Nota> obtenerNotasPorEstudiante(@PathVariable("estudianteid") Integer estudianteid) {
         return repositorioNota.findByEstudianteId(estudianteid);
+    }
+    @PutMapping("/actnota/{id}")
+    public Nota actualizaNota(@PathVariable Integer id, @RequestBody Nota nota) {
+        Nota nuevaNota = repositorioNota.findById(id)
+                .orElseThrow(() -> new RegistroNoEncontradoException("No existe la nota con id: " + id));
+
+        nuevaNota.setObservacion(nota.getObservacion());
+        nuevaNota.setValor(nota.getValor());
+        nuevaNota.setPorcentaje(nota.getPorcentaje());
+
+        return  repositorioNota.save(nuevaNota);
     }
 
 }
