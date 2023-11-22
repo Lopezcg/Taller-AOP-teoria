@@ -51,7 +51,7 @@ function creaNota(){
     const observacion = document.getElementById("observacion").value;
     const valor = document.getElementById("valor").value;
     const porcentaje = document.getElementById("porcentaje").value;
-    // xhttp.open("GET", "http://localhost:8080/api/estudiante/" + id );
+
     const xhttp = new XMLHttpRequest();
     xhttp.open("POST", "http://localhost:8080/api/crearnota");
     xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -60,6 +60,7 @@ function creaNota(){
             observacion: observacion,
             valor: parseFloat(valor),
             porcentaje: parseFloat(porcentaje),
+            estudianteId:id
         })
     );
     xhttp.onreadystatechange = function () {
@@ -98,6 +99,7 @@ function editarNota(id,estudiante_id){
             observacion: observacion,
             valor: valor,
             porcentaje: porcentaje,
+
         })
     );
     console.log("holaerror");

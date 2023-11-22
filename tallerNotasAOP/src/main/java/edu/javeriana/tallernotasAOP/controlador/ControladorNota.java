@@ -34,6 +34,9 @@ public class ControladorNota {
     public Nota creaNota(@RequestBody  Nota nota) {
         return repositorioNota.save(nota);
     }
-
+    @GetMapping("/notas/{estudianteid}")
+    public List<Nota> obtenerNotasPorEstudiante(@PathVariable("estudianteid") Integer estudianteid) {
+        return repositorioNota.findByEstudianteId(estudianteid);
+    }
 
 }

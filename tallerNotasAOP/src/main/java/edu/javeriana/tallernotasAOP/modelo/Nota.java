@@ -20,10 +20,6 @@ public class Nota {
     private String observacion;
     private Double valor;
     private Double porcentaje;
-
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "estudiante_id", nullable = false)
-    @JsonIgnore
-    private Estudiante estudiante;
+    @Column(name = "estudiante_id")
+    private Integer estudianteId;
 }

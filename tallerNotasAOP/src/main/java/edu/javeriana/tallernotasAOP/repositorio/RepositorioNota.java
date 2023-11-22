@@ -8,5 +8,5 @@ import java.util.Optional;
 
 // RepositorioNota interface
 public interface RepositorioNota extends JpaRepository<Nota, Integer> {
-    List<Nota> findByEstudiante_id(Integer estudiante_id);
+    List<Nota> findByEstudianteId(Integer estudianteId);
 }

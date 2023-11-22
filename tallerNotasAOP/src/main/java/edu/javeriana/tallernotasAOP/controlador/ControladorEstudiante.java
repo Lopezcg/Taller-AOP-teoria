@@ -58,11 +58,7 @@ public class ControladorEstudiante {
         repositorioEstudiante.delete(estudiante);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    @Autowired
-    private RepositorioNota repositorioNota;
-    @GetMapping("/notas/{estudiante_id}")
-    public List<Nota> obtenerNotasPorEstudiante(@PathVariable("estudiante_id") Integer estudiante_id) {
-        return repositorioNota.findByEstudiante_id(estudiante_id);
-    }
+
+
 
 }

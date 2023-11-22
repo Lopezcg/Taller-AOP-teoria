@@ -20,6 +20,5 @@ public class Estudiante {
     private String nombre;
     private String apellido;
     private String correo;
-    @OneToMany(mappedBy = "estudiante", cascade = CascadeType.ALL)
-    private List<Nota> notas;
+
 }
