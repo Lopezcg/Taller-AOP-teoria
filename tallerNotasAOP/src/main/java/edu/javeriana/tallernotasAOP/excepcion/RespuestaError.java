@@ -14,6 +14,8 @@ public class RespuestaError {
         this.detalles = detalles;
     }
 
+
+
     private String mensaje;
     private List<String> detalles;
 }

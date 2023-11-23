@@ -6,11 +6,13 @@ import edu.javeriana.tallernotasAOP.modelo.Nota;
 import edu.javeriana.tallernotasAOP.repositorio.RepositorioNota;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@Service
 @RequestMapping("/api/")
 public class ControladorNota {
 

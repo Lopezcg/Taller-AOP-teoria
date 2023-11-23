@@ -14,6 +14,8 @@ function cargaNotas() {
             console.log(this.responseText);
             var trHTML = "";
             const objects = JSON.parse(this.responseText);
+            let totalPorcentaje = 0;
+            let totalValor = 0;
             for (let object of objects) {
                 trHTML += "<tr>";
                 trHTML += "<td>" + object["id"] + "</td>";
@@ -25,7 +27,10 @@ function cargaNotas() {
                 trHTML +=
                     '<button type="button" class="btn btn-outline-danger" onclick="borrarNota(' +  object["id"] + ')">Borrar</button></td>';
                 trHTML += "</tr>";
+                totalPorcentaje+=object["porcentaje"];
+                totalValor+=object["valor"]*object["porcentaje"]/100;
             }
+            trHTML += "<tr><td>Con el porcentaje acumulado del " + totalPorcentaje + " %</td><td> la nota es: " + totalValor + "</td></tr>";
             document.getElementById("mytable").innerHTML = trHTML;
 
         }
@@ -66,10 +71,17 @@ function creaNota(){
         })
     );
     xhttp.onreadystatechange = function () {
+        console.log(this);
         if (this.readyState == 4 && this.status == 200) {
             const objects = JSON.parse(this.responseText);
-            Swal.fire(objects["message"]);
+            Swal.fire("Nota creada exitosamente.");
             cargaNotas();
+        }else if(this.status== 403){
+            Swal.fire("Error, el porcentaje total no puede superar el 100% ");
+        }else if(this.status== 400){
+            Swal.fire("Error, La nota no puede ser de 2 cifras");
+        }else if(this.status== 204){
+            Swal.fire("Error, Los valores de nota no pueden estar vacios");
         }
     };
 }
@@ -121,14 +133,20 @@ function editarNota(id){
             porcentaje: porcentaje,
         })
     );
-    console.log("holaerror");
+
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             const objects = JSON.parse(this.responseText);
-            Swal.fire(objects["message"]);
+            Swal.fire("Nota editada correctamente.");
             cargaNotas();
-        }
-    };
+        }else if(this.status== 403){
+            Swal.fire("Error, el porcentaje total no puede superar el 100%");
+        } else if(this.status== 204){
+            Swal.fire("Error, Los vaores de nota no pueden estar vacios");
+        }   else if(this.status== 400){
+        Swal.fire("Error, La nota no puede ser de 2 cifras");
+    }
+    }
 }
 function borrarNota(id){
     const xhttp = new XMLHttpRequest();
